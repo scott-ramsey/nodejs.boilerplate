@@ -1,0 +1,109 @@
+var app = require('../app');
+var http = require('http');
+var https = require('https');
+var fs = require('fs');
+
+var port = process.env.PORT;
+var sslPort = process.env.SSL_PORT;
+
+/*
+ * Setup SSL options
+ */
+ 
+var options = {
+  key: fs.readFileSync(process.env.SSL_KEY),
+  cert: fs.readFileSync(process.env.SSL_CERT),
+  passphrase: process.env.SSL_PASSWORD
+};
+
+/*
+ * Create http server and force traffic to https
+ */
+
+var server = http.createServer((req, res) => {
+  var host = req.headers['host'].replace(port, sslPort);
+  res.writeHead(301, { "Location": "https://" + host + req.url });
+  res.end();
+});
+
+/*
+ * Create https server
+ */
+
+var sslServer = https.createServer(options, app);
+
+/*
+ * Listen on provided ports
+ */
+
+server.on('error', onError);
+server.on('listening', onListening);
+server.listen(port);
+
+sslServer.on('error', onSSLError);
+sslServer.on('listening', onSSLListening);
+sslServer.listen(sslPort);
+
+/*
+ * Event listener for HTTP & HTTPS servers "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  handleError(error.code);
+}
+
+function onSSLError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof sslPort === 'string'
+    ? 'Pipe ' + sslPort
+    : 'Port ' + sslPort;
+
+  handleError(error.code);
+}
+
+// handle specific listen errors with friendly messages
+function handleError(code) {
+  switch (code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/*
+ * Event listener for HTTP & HTTPS servers "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log('HTTP server listening on ' + bind);
+}
+
+function onSSLListening() {
+  var addr = sslServer.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log('HTTPS server listening on ' + bind);
+}

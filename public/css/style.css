@@ -1,0 +1,48 @@
+html, body {
+    font-size: 16px;
+    color: #616161;
+    background: #f5f5f5;
+}
+
+.full-height {
+    min-height: calc(100vh - 70px);
+}
+
+.hidden {
+    display: none;
+}
+
+.small {
+    font-size: .65em;
+    display: block;
+}
+
+.blue-text {
+    color: #2c4b85 !important;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+.top-row {
+    margin-top: 15px;
+}
+
+nav {
+    background-image: linear-gradient(to right, #2c4b85, #3960b0);
+    padding: 0 8px 0 8px;
+}
+
+nav .brand-logo {
+    max-height: 24px;
+    padding: 8px 0;
+}
+
+.panelUI {
+    background: #fff;
+    border: 2px solid #2c4b85;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
