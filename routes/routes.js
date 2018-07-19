@@ -11,10 +11,6 @@ router.get('/', (req, res) => {
   res.render('index', context);
 });
 
-/*
-  Add application REST routes here
-*/
-
 /* GET static page */
 router.get('/:parent/:child?', (req, res) => {
   try {

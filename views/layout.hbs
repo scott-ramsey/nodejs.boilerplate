@@ -15,14 +15,15 @@
       {{{body}}}
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-    <script src="https://cdns.gigya.com/js/socialize.js?apiKey=2_Y82PzwJ_chSFImHXaIDJClnLyJzmk-VFOavSsaNTzl6m901s_NNxRAS0xJ3bd3_N"></script>
+    <script src="/js/global.js"></script>  
     <script src="/layout.js"></script>   
 
     {{#each route.scripts}}
       <script src="{{this}}"></script>
     {{/each}}
+
+    <script src="https://cdns.gigya.com/js/gigya.js?apikey=<your_api_key>"></script>
 
   </body>
 </html>

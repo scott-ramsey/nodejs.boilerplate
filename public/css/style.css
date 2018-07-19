@@ -46,3 +46,20 @@ nav .brand-logo {
     padding: 15px;
     margin-bottom: 15px;
 }
+
+[type="checkbox"]:not(:checked), 
+[type="checkbox"]:checked,
+[type="radio"]:not(:checked), 
+[type="radio"]:checked  {
+    position: relative !important;
+    opacity: 1 !important;
+}
+
+.gigya-screen.landscape .gigya-layout-row .gigya-layout-cell.under-site-login {
+    width: 100% !important;
+    margin-left: 0px !important;
+}
+
+select {
+    display: block !important;
+}
